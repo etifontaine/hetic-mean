@@ -1,31 +1,37 @@
-$.ajax({
-  url: 'http://localhost:3000/api/articles',
-  dataType: 'JSON',
-  type: 'GET',
+document.addEventListener('DOMContentLoaded', () => {
+  
+  const myButton = document.querySelector('button')
 
-  success: function(data){
+  /*
+  Requête asynchrone en ES6
+  Fonction fetch() plus le système de Promise
+  */
+      // Créer une fonction pour la requête
+      const asyncLoadFunction = theApiUrl => {
+        // La fonction fetch() prend en paramètre l'adresse de l'API
+        fetch(theApiUrl ).then(data => {
+            // Les données sont présentes => renvoyer une Promise de type 'resolve'
+            if (data.ok) { return Promise.resolve(data) }
 
-     // Vérifier la connexion
-     if(data.name == "MongoError"){
-        // Afficher le message d'erreur de connexion dans la console
-        console.log(data.message)
+            // Les données sont présentes => renvoyer une Promise de type 'reject'
+            else { return Promise.reject(new Error('Problème dans la requête')) }
+        })
 
-     } else{
-        // Afficher les données dans la console
-        console.log(data)
-        data.forEach(a => {
-          $('.articles').append(`
-          <div>
-            <h2>${a.title}</h2>
-            <img height="100" src="${a.content}" />
-          </div>
-          `)
-        });
-     }
-  },
+        // Traiter le réponse
+        .then( data => data.json() )
 
-  error: function(err){
-     // Afficher le message d'erreur de requête dans la console
-     console.log(err)
-  }
-})
+        // Manipuler les données de la réponse
+        .then(data =>  {
+            console.log(data)
+            document.querySelector('.articles').innerHTML = data;
+        })
+
+        // Capter l'erreur
+        .catch((err) =>  console.log(err) );
+    }
+    //
+
+  myButton.addEventListener('click', (e) => {
+    asyncLoadFunction('http://localhost:3000/api/articles')
+  })
+});
