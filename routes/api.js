@@ -35,6 +35,11 @@ router.get('/articles', (req, res, next) => {
 
 });
 
+router.post('/add-post', (req, res, next) => {
+  console.log('new article')
+  res.json( { content: 'Article posted' } );
+})
+
 /*
 Exporter le module de route
 */
