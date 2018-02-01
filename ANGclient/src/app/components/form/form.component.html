@@ -1,0 +1,11 @@
+<strong *ngIf="errorPublic">ERREUR</strong>
+<form (submit)="addNewPost()">
+  <label for="title">Titre</label>
+  <input type="text" name="title" id="title" [(ngModel)]="newPost.title">
+  <label for="content">Contenu</label>
+  <textarea name="" id="content" cols="30" rows="10" name="content" [(ngModel)]="newPost.content"></textarea>
+  <button type="submit">Valider</button>
+</form>
+
+
+{{ newPost | json}}

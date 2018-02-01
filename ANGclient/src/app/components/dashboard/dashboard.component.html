@@ -1,0 +1,10 @@
+<p>
+  dashboard works!
+</p>
+<ul>
+  <li *ngFor="let item of dataCollection">{{ item }}</li>
+</ul>
+
+<p *ngIf="showIt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae similique voluptatem officiis, quidem asperiores neque veritatis quia nulla? Facere molestiae iusto pariatur sit quos dolore natus ex. Eos, in officiis?</p>
+
+<button (click)="showIt = !showIt">Afficher</button>
